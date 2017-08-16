@@ -11,7 +11,7 @@ export class ProductLijstComponent implements OnInit {
 
   producten: Product[] = [new Product(1, 'Verf', 'Liter', 19.99)];
 
-  constructor() { }
+  constructor() {}
 
   ngOnInit() {
   }
