@@ -1,0 +1,46 @@
+<h3>
+  Producten
+  <small class="text-muted">| Producten toevoegen en verwijderen</small>
+</h3>
+
+<hr>
+
+<table class="table">
+  <thead class="thead-inverse">
+  <tr>
+    <th>#</th>
+    <th>Naam</th>
+    <th>Eenheid</th>
+    <th>Prijs</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr *ngFor="let product of producten">
+    <th scope="row"> {{ product.id }}</th>
+    <td>{{ product.naam }}</td>
+    <td>{{ product.eenheid }}</td>
+    <td>{{ product.prijs }}</td>
+    <td>
+      <button class="btn btn-danger" (click)="verwijderProduct(product)">Verwijder product</button>
+    </td>
+  </tr>
+  </tbody>
+</table>
+
+<div class="col-xs-4 form-group">
+  <form id="productForm">
+    <label for="naam">Productnaam: </label>
+    <input required type="text" class="form-control" id="naam" #naam>
+    <label for="naam">Eenheid: </label>
+    <input required type="text" class="form-control" id="eenheid" #eenheid>
+    <label for="naam">Prijs: </label>
+    <input required pattern="[0-9]+([\.,][0-9]+)?"
+           step="0.01" type="number"
+           class="form-control"
+           id="prijs"
+           #prijs>
+    <button type="button" class="btn btn-success">Verwijder formulier</button>
+    <button type="button" class="btn btn-primary" (click)="voegProductToe(naam, eenheid, prijs)">Voeg product toe</button>
+  </form>
+</div>
