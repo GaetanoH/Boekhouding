@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Product } from '../models/product.model';
+import {ProductenService} from './producten.service';
 
 @Component({
   selector: 'app-product-lijst',
@@ -9,22 +10,21 @@ import { Product } from '../models/product.model';
 })
 export class ProductLijstComponent implements OnInit {
 
-  producten: Product[] = [new Product(1, 'Verf', 'Liter', 19.99)];
 
-  constructor() { }
+  producten: Product[];
+
+  constructor(private productService: ProductenService) { }
 
   ngOnInit() {
+    this.producten = this.productService.getProducten();
   }
 
   voegProductToe(naam: HTMLInputElement, eenheid: HTMLInputElement, prijs: HTMLInputElement) {
-    const lastProduct = this.producten[this.producten.length - 1];
-    const index = lastProduct.id + 1;
-    const newProduct = new Product(index, naam.value, eenheid.value, prijs.valueAsNumber);
-    this.producten.push(newProduct);
+    this.productService
+      .addProduct(new Product(naam.value, eenheid.value, +prijs.value))
   }
 
   verwijderProduct(product: Product) {
-    const index = this.producten.indexOf(product);
-    this.producten.splice(index, 1);
+    this.productService.deleteProduct(product);
   }
 }

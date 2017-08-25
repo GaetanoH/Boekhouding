@@ -5,18 +5,23 @@ import { AppComponent } from './app.component';
 import { HeaderComponent } from './header/header.component';
 import { ProductLijstComponent } from './product-lijst/product-lijst.component';
 import { UrenLijstComponent } from './uren-lijst/uren-lijst.component';
+import { AppRouterModule } from './app-router.module';
+import {ProductenService} from './product-lijst/producten.service';
+import {FormsModule} from '@angular/forms';
 
 @NgModule({
   declarations: [
     AppComponent,
     HeaderComponent,
     ProductLijstComponent,
-    UrenLijstComponent
+    UrenLijstComponent,
   ],
   imports: [
-    BrowserModule
+    BrowserModule,
+    AppRouterModule,
+    FormsModule
   ],
-  providers: [],
+  providers: [ProductenService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

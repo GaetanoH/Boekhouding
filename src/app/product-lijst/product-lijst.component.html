@@ -1,46 +1,52 @@
-<h3>
-  Producten
-  <small class="text-muted">| Producten toevoegen en verwijderen</small>
-</h3>
+<div class="row">
+    <table *ngIf="producten.length > 0; else geenProducten" class="table">
+      <thead class="thead-inverse">
+      <tr>
+        <th>#</th>
+        <th>Naam</th>
+        <th>Eenheid</th>
+        <th>Prijs</th>
+        <th></th>
+        <th></th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let product of producten; let i = index">
+        <th scope="row"> {{ i }}</th>
+        <td>{{ product.naam }}</td>
+        <td>{{ product.eenheid }}</td>
+        <td>{{ product.prijs }}</td>
+        <td class="text-center">
+          <button class="btn btn-danger" (click)="verwijderProduct(product)">Verwijder</button>
+        </td>
+        <td class="text-center">
+          <button style="margin-top: 0px;" class="btn btn-primary" (click)="veranderProduct(product)">Wijzig</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
 
-<hr>
+    <ng-template #geenProducten>
+      <h3>U hebt nog geen producten toegevoegd! </h3>
+    </ng-template>
 
-<table class="table">
-  <thead class="thead-inverse">
-  <tr>
-    <th>#</th>
-    <th>Naam</th>
-    <th>Eenheid</th>
-    <th>Prijs</th>
-    <th></th>
-  </tr>
-  </thead>
-  <tbody>
-  <tr *ngFor="let product of producten">
-    <th scope="row"> {{ product.id }}</th>
-    <td>{{ product.naam }}</td>
-    <td>{{ product.eenheid }}</td>
-    <td>{{ product.prijs }}</td>
-    <td>
-      <button class="btn btn-danger" (click)="verwijderProduct(product)">Verwijder product</button>
-    </td>
-  </tr>
-  </tbody>
-</table>
+    <div class="form-group">
+      <form id="productForm" #productForm>
+        <label for="naam">Productnaam: </label>
+        <input required type="text" class="form-control" id="naam" #naam />
+        <label for="naam">Eenheid: </label>
+        <input required type="text" class="form-control" id="eenheid" #eenheid />
+        <label for="naam">Prijs: </label>
+        <input required pattern="[0-9]+([\.,][0-9]+)?"
+               step="0.01" type="number"
+               class="form-control"
+               id="prijs"
+               #prijs />
 
-<div class="col-xs-4 form-group">
-  <form id="productForm">
-    <label for="naam">Productnaam: </label>
-    <input required type="text" class="form-control" id="naam" #naam>
-    <label for="naam">Eenheid: </label>
-    <input required type="text" class="form-control" id="eenheid" #eenheid>
-    <label for="naam">Prijs: </label>
-    <input required pattern="[0-9]+([\.,][0-9]+)?"
-           step="0.01" type="number"
-           class="form-control"
-           id="prijs"
-           #prijs>
-    <button type="button" class="btn btn-success">Verwijder formulier</button>
-    <button type="button" class="btn btn-primary" (click)="voegProductToe(naam, eenheid, prijs)">Voeg product toe</button>
-  </form>
+        <div class="btn-group-vertical">
+          <button type="button" class="btn btn-danger" (click)="productForm.reset()">Verwijder formulier</button>
+          <button type="button" class="btn btn-primary" (click)="voegProductToe(naam, eenheid, prijs)">Voeg product toe</button>
+        </div>
+      </form>
+    </div>
 </div>
